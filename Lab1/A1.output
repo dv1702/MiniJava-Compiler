@@ -1,0 +1,3445 @@
+Nonterminals useless in grammar
+
+    MoreType
+
+
+Rules useless in grammar
+
+  108 MoreType: Type Identifier MoreType
+  109         | %empty
+
+
+State 114 conflicts: 4 shift/reduce
+State 205 conflicts: 5 shift/reduce
+State 206 conflicts: 5 shift/reduce
+State 220 conflicts: 5 shift/reduce
+State 222 conflicts: 5 shift/reduce
+State 237 conflicts: 5 shift/reduce
+State 245 conflicts: 5 shift/reduce
+State 246 conflicts: 5 shift/reduce
+
+
+Grammar
+
+    0 $accept: Goal $end
+
+    1 Goal: MacroDefinition MainClass MultipleTypeDeclaration
+
+    2 MainClass: Class Identifier LCbracket MainFuntion RCbracket
+
+    3 Class: CLASS
+
+    4 MainFuntion: PublicMain LRbracket String LSbracket RSbracket Identifier RRbracket LCbracket MainFunctionStatement RCbracket
+
+    5 PublicMain: PUBLIC_STATIC_VOID_MAIN
+
+    6 String: STRING
+
+    7 MainFunctionStatement: SysOut LRbracket Expression RRbracket Semicolon
+
+    8 MultipleTypeDeclaration: Class Identifier WithExtends
+    9                        | %empty
+
+   10 WithExtends: Extends Identifier LCbracket MultipleType MultipleMethod RCbracket MultipleTypeDeclaration
+   11            | LCbracket MultipleType MultipleMethod RCbracket MultipleTypeDeclaration
+
+   12 Extends: EXTENDS
+
+   13 MultipleType: Type Identifier Semicolon MultipleType
+   14             | %empty
+
+   15 MultipleMethod: Public Type Identifier LRbracket MultipleTypeArgs RRbracket LCbracket MultipleTypeArgsStatement Return Expression Semicolon RCbracket MultipleMethod
+   16               | %empty
+
+   17 MultipleTypeArgsStatement: Type Identifier Semicolon MultipleTypeArgsStatement
+   18                          | Statement
+
+   19 Public: PUBLIC
+
+   20 MultipleTypeArgs: Type Identifier MoreTypeArgs
+   21                 | %empty
+
+   22 MoreTypeArgs: Comma Type Identifier MoreTypeArgs
+   23             | %empty
+
+   24 Return: RETURN
+
+   25 Type: Int IntBrackets
+   26     | Boolean
+   27     | Identifier
+
+   28 IntBrackets: LSbracket RSbracket
+   29            | %empty
+
+   30 MacroDefinition: MacroDefExpression MacroDefinition
+   31                | MacroDefStatement MacroDefinition
+   32                | %empty
+
+   33 MacroDefStatement: DefineStmt Identifier LRbracket ThreeArgs RRbracket LCbracket Statement RCbracket
+   34                  | DefineStmt0 Identifier LRbracket RRbracket LCbracket Statement RCbracket
+   35                  | DefineStmt1 Identifier LRbracket OneArg RRbracket LCbracket Statement RCbracket
+   36                  | DefineStmt2 Identifier LRbracket TwoArgs RRbracket LCbracket Statement RCbracket
+
+   37 DefineStmt: DEFINE_STMT
+
+   38 DefineStmt0: DEFINE_STMT_0
+
+   39 DefineStmt1: DEFINE_STMT_1
+
+   40 DefineStmt2: DEFINE_STMT_2
+
+   41 Statement: LCbracket Statement RCbracket
+   42          | SysOut LRbracket Expression RRbracket Semicolon Statement
+   43          | If LRbracket Expression RRbracket Statement ElsePart
+   44          | Identifier IdentifierStatement
+   45          | While LRbracket Expression RRbracket Statement Statement
+   46          | %empty
+
+   47 IdentifierStatement: Assign Expression Semicolon Statement
+   48                    | LSbracket Expression RSbracket Assign Expression Semicolon Statement
+   49                    | LRbracket NonZeroExpression RRbracket Semicolon
+
+   50 ElsePart: Else Statement Statement
+
+   51 SysOut: SYSTEM_OUT_PRINTLN
+
+   52 Semicolon: SEMI_COLON
+
+   53 Assign: ASSIGN
+
+   54 If: IF
+
+   55 Else: ELSE
+
+   56 While: WHILE
+
+   57 MacroDefExpression: DefineExpr Identifier LRbracket ThreeArgs RRbracket LRbracket Expression RRbracket
+   58                   | DefineExpr0 Identifier LRbracket RRbracket LRbracket Expression RRbracket
+   59                   | DefineExpr1 Identifier LRbracket OneArg RRbracket LRbracket Expression RRbracket
+   60                   | DefineExpr2 Identifier LRbracket TwoArgs RRbracket LRbracket Expression RRbracket
+
+   61 DefineExpr: DEFINE_EXPR
+
+   62 DefineExpr0: DEFINE_EXPR_0
+
+   63 DefineExpr1: DEFINE_EXPR_1
+
+   64 DefineExpr2: DEFINE_EXPR_2
+
+   65 Expression: PrimaryExpression SubExpression
+   66           | Identifier LRbracket NonZeroExpression RRbracket
+
+   67 SubExpression: Operation PrimaryExpression
+   68              | LSbracket PrimaryExpression RSbracket
+   69              | Length
+   70              | Dot Identifier LRbracket NonZeroExpression RRbracket
+   71              | %empty
+
+   72 NonZeroExpression: Expression PositiveExpression
+   73                  | %empty
+
+   74 PositiveExpression: Comma Expression PositiveExpression
+   75                   | %empty
+
+   76 Operation: OPERATOR
+
+   77 PrimaryExpression: Integer
+   78                  | BoolVal
+   79                  | Identifier
+   80                  | This
+   81                  | New Int LSbracket Expression RSbracket
+   82                  | New Identifier LRbracket RRbracket
+   83                  | Not Expression
+   84                  | LRbracket Expression RRbracket
+
+   85 BoolVal: TRUE
+   86        | FALSE
+
+   87 This: THIS
+
+   88 Length: LENGTH
+
+   89 New: NEW
+
+   90 Int: INT
+
+   91 Not: NOT
+
+   92 Dot: DOT
+
+   93 Boolean: BOOLEAN
+
+   94 ThreeArgs: Identifier Comma Identifier Comma Identifier MoreArgs
+
+   95 MoreArgs: Comma Identifier MoreArgs
+   96         | %empty
+
+   97 TwoArgs: Identifier Comma Identifier
+
+   98 OneArg: Identifier
+
+   99 Integer: INTEGER_LITERAL
+
+  100 Identifier: IDENTIFIER
+
+  101 LRbracket: LEFT_ROUND_BRACKET
+
+  102 RRbracket: RIGHT_ROUND_BRACKET
+
+  103 LSbracket: LEFT_SQR_BRACKET
+
+  104 RSbracket: RIGHT_SQR_BRACKET
+
+  105 LCbracket: LEFT_CURL_BRACKET
+
+  106 RCbracket: RIGHT_CURL_BRACKET
+
+  107 Comma: COMMA
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    DEFINE_EXPR (258) 61
+    DEFINE_EXPR_0 (259) 62
+    DEFINE_EXPR_1 (260) 63
+    DEFINE_EXPR_2 (261) 64
+    DEFINE_STMT (262) 37
+    DEFINE_STMT_0 (263) 38
+    DEFINE_STMT_1 (264) 39
+    DEFINE_STMT_2 (265) 40
+    LEFT_ROUND_BRACKET (266) 101
+    RIGHT_ROUND_BRACKET (267) 102
+    LEFT_SQR_BRACKET (268) 103
+    RIGHT_SQR_BRACKET (269) 104
+    LEFT_CURL_BRACKET (270) 105
+    RIGHT_CURL_BRACKET (271) 106
+    IDENTIFIER (272) 100
+    INTEGER_LITERAL (273) 99
+    TRUE (274) 85
+    FALSE (275) 86
+    THIS (276) 87
+    NEW (277) 89
+    INT (278) 90
+    NOT (279) 91
+    BOOLEAN (280) 93
+    OPERATOR (281) 76
+    DOT (282) 92
+    COMMA (283) 107
+    LENGTH (284) 88
+    SEMI_COLON (285) 52
+    ASSIGN (286) 53
+    IF (287) 54
+    ELSE (288) 55
+    WHILE (289) 56
+    RETURN (290) 24
+    SYSTEM_OUT_PRINTLN (291) 51
+    CLASS (292) 3
+    PUBLIC_STATIC_VOID_MAIN (293) 5
+    STRING (294) 6
+    PUBLIC (295) 19
+    EXTENDS (296) 12
+
+
+Nonterminals, with rules where they appear
+
+    $accept (42)
+        on left: 0
+    Goal (43)
+        on left: 1
+        on right: 0
+    MainClass (44)
+        on left: 2
+        on right: 1
+    Class (45)
+        on left: 3
+        on right: 2 8
+    MainFuntion (46)
+        on left: 4
+        on right: 2
+    PublicMain (47)
+        on left: 5
+        on right: 4
+    String (48)
+        on left: 6
+        on right: 4
+    MainFunctionStatement (49)
+        on left: 7
+        on right: 4
+    MultipleTypeDeclaration (50)
+        on left: 8 9
+        on right: 1 10 11
+    WithExtends (51)
+        on left: 10 11
+        on right: 8
+    Extends (52)
+        on left: 12
+        on right: 10
+    MultipleType (53)
+        on left: 13 14
+        on right: 10 11 13
+    MultipleMethod (54)
+        on left: 15 16
+        on right: 10 11 15
+    MultipleTypeArgsStatement (55)
+        on left: 17 18
+        on right: 15 17
+    Public (56)
+        on left: 19
+        on right: 15
+    MultipleTypeArgs (57)
+        on left: 20 21
+        on right: 15
+    MoreTypeArgs (58)
+        on left: 22 23
+        on right: 20 22
+    Return (59)
+        on left: 24
+        on right: 15
+    Type (60)
+        on left: 25 26 27
+        on right: 13 15 17 20 22
+    IntBrackets (61)
+        on left: 28 29
+        on right: 25
+    MacroDefinition (62)
+        on left: 30 31 32
+        on right: 1 30 31
+    MacroDefStatement (63)
+        on left: 33 34 35 36
+        on right: 31
+    DefineStmt (64)
+        on left: 37
+        on right: 33
+    DefineStmt0 (65)
+        on left: 38
+        on right: 34
+    DefineStmt1 (66)
+        on left: 39
+        on right: 35
+    DefineStmt2 (67)
+        on left: 40
+        on right: 36
+    Statement (68)
+        on left: 41 42 43 44 45 46
+        on right: 18 33 34 35 36 41 42 43 45 47 48 50
+    IdentifierStatement (69)
+        on left: 47 48 49
+        on right: 44
+    ElsePart (70)
+        on left: 50
+        on right: 43
+    SysOut (71)
+        on left: 51
+        on right: 7 42
+    Semicolon (72)
+        on left: 52
+        on right: 7 13 15 17 42 47 48 49
+    Assign (73)
+        on left: 53
+        on right: 47 48
+    If (74)
+        on left: 54
+        on right: 43
+    Else (75)
+        on left: 55
+        on right: 50
+    While (76)
+        on left: 56
+        on right: 45
+    MacroDefExpression (77)
+        on left: 57 58 59 60
+        on right: 30
+    DefineExpr (78)
+        on left: 61
+        on right: 57
+    DefineExpr0 (79)
+        on left: 62
+        on right: 58
+    DefineExpr1 (80)
+        on left: 63
+        on right: 59
+    DefineExpr2 (81)
+        on left: 64
+        on right: 60
+    Expression (82)
+        on left: 65 66
+        on right: 7 15 42 43 45 47 48 57 58 59 60 72 74 81 83 84
+    SubExpression (83)
+        on left: 67 68 69 70 71
+        on right: 65
+    NonZeroExpression (84)
+        on left: 72 73
+        on right: 49 66 70
+    PositiveExpression (85)
+        on left: 74 75
+        on right: 72 74
+    Operation (86)
+        on left: 76
+        on right: 67
+    PrimaryExpression (87)
+        on left: 77 78 79 80 81 82 83 84
+        on right: 65 67 68
+    BoolVal (88)
+        on left: 85 86
+        on right: 78
+    This (89)
+        on left: 87
+        on right: 80
+    Length (90)
+        on left: 88
+        on right: 69
+    New (91)
+        on left: 89
+        on right: 81 82
+    Int (92)
+        on left: 90
+        on right: 25 81
+    Not (93)
+        on left: 91
+        on right: 83
+    Dot (94)
+        on left: 92
+        on right: 70
+    Boolean (95)
+        on left: 93
+        on right: 26
+    ThreeArgs (96)
+        on left: 94
+        on right: 33 57
+    MoreArgs (97)
+        on left: 95 96
+        on right: 94 95
+    TwoArgs (98)
+        on left: 97
+        on right: 36 60
+    OneArg (99)
+        on left: 98
+        on right: 35 59
+    Integer (100)
+        on left: 99
+        on right: 77
+    Identifier (101)
+        on left: 100
+        on right: 2 4 8 10 13 15 17 20 22 27 33 34 35 36 44 57 58 59 60 66 70 79 82 94 95 97 98
+    LRbracket (102)
+        on left: 101
+        on right: 4 7 15 33 34 35 36 42 43 45 49 57 58 59 60 66 70 82 84
+    RRbracket (103)
+        on left: 102
+        on right: 4 7 15 33 34 35 36 42 43 45 49 57 58 59 60 66 70 82 84
+    LSbracket (104)
+        on left: 103
+        on right: 4 28 48 68 81
+    RSbracket (105)
+        on left: 104
+        on right: 4 28 48 68 81
+    LCbracket (106)
+        on left: 105
+        on right: 2 4 10 11 15 33 34 35 36 41
+    RCbracket (107)
+        on left: 106
+        on right: 2 4 10 11 15 33 34 35 36 41
+    Comma (108)
+        on left: 107
+        on right: 22 74 94 95 97
+
+
+State 0
+
+    0 $accept: . Goal $end
+
+    DEFINE_EXPR    shift, and go to state 1
+    DEFINE_EXPR_0  shift, and go to state 2
+    DEFINE_EXPR_1  shift, and go to state 3
+    DEFINE_EXPR_2  shift, and go to state 4
+    DEFINE_STMT    shift, and go to state 5
+    DEFINE_STMT_0  shift, and go to state 6
+    DEFINE_STMT_1  shift, and go to state 7
+    DEFINE_STMT_2  shift, and go to state 8
+
+    $default  reduce using rule 32 (MacroDefinition)
+
+    Goal                go to state 9
+    MacroDefinition     go to state 10
+    MacroDefStatement   go to state 11
+    DefineStmt          go to state 12
+    DefineStmt0         go to state 13
+    DefineStmt1         go to state 14
+    DefineStmt2         go to state 15
+    MacroDefExpression  go to state 16
+    DefineExpr          go to state 17
+    DefineExpr0         go to state 18
+    DefineExpr1         go to state 19
+    DefineExpr2         go to state 20
+
+
+State 1
+
+   61 DefineExpr: DEFINE_EXPR .
+
+    $default  reduce using rule 61 (DefineExpr)
+
+
+State 2
+
+   62 DefineExpr0: DEFINE_EXPR_0 .
+
+    $default  reduce using rule 62 (DefineExpr0)
+
+
+State 3
+
+   63 DefineExpr1: DEFINE_EXPR_1 .
+
+    $default  reduce using rule 63 (DefineExpr1)
+
+
+State 4
+
+   64 DefineExpr2: DEFINE_EXPR_2 .
+
+    $default  reduce using rule 64 (DefineExpr2)
+
+
+State 5
+
+   37 DefineStmt: DEFINE_STMT .
+
+    $default  reduce using rule 37 (DefineStmt)
+
+
+State 6
+
+   38 DefineStmt0: DEFINE_STMT_0 .
+
+    $default  reduce using rule 38 (DefineStmt0)
+
+
+State 7
+
+   39 DefineStmt1: DEFINE_STMT_1 .
+
+    $default  reduce using rule 39 (DefineStmt1)
+
+
+State 8
+
+   40 DefineStmt2: DEFINE_STMT_2 .
+
+    $default  reduce using rule 40 (DefineStmt2)
+
+
+State 9
+
+    0 $accept: Goal . $end
+
+    $end  shift, and go to state 21
+
+
+State 10
+
+    1 Goal: MacroDefinition . MainClass MultipleTypeDeclaration
+
+    CLASS  shift, and go to state 22
+
+    MainClass  go to state 23
+    Class      go to state 24
+
+
+State 11
+
+   31 MacroDefinition: MacroDefStatement . MacroDefinition
+
+    DEFINE_EXPR    shift, and go to state 1
+    DEFINE_EXPR_0  shift, and go to state 2
+    DEFINE_EXPR_1  shift, and go to state 3
+    DEFINE_EXPR_2  shift, and go to state 4
+    DEFINE_STMT    shift, and go to state 5
+    DEFINE_STMT_0  shift, and go to state 6
+    DEFINE_STMT_1  shift, and go to state 7
+    DEFINE_STMT_2  shift, and go to state 8
+
+    $default  reduce using rule 32 (MacroDefinition)
+
+    MacroDefinition     go to state 25
+    MacroDefStatement   go to state 11
+    DefineStmt          go to state 12
+    DefineStmt0         go to state 13
+    DefineStmt1         go to state 14
+    DefineStmt2         go to state 15
+    MacroDefExpression  go to state 16
+    DefineExpr          go to state 17
+    DefineExpr0         go to state 18
+    DefineExpr1         go to state 19
+    DefineExpr2         go to state 20
+
+
+State 12
+
+   33 MacroDefStatement: DefineStmt . Identifier LRbracket ThreeArgs RRbracket LCbracket Statement RCbracket
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 27
+
+
+State 13
+
+   34 MacroDefStatement: DefineStmt0 . Identifier LRbracket RRbracket LCbracket Statement RCbracket
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 28
+
+
+State 14
+
+   35 MacroDefStatement: DefineStmt1 . Identifier LRbracket OneArg RRbracket LCbracket Statement RCbracket
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 29
+
+
+State 15
+
+   36 MacroDefStatement: DefineStmt2 . Identifier LRbracket TwoArgs RRbracket LCbracket Statement RCbracket
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 30
+
+
+State 16
+
+   30 MacroDefinition: MacroDefExpression . MacroDefinition
+
+    DEFINE_EXPR    shift, and go to state 1
+    DEFINE_EXPR_0  shift, and go to state 2
+    DEFINE_EXPR_1  shift, and go to state 3
+    DEFINE_EXPR_2  shift, and go to state 4
+    DEFINE_STMT    shift, and go to state 5
+    DEFINE_STMT_0  shift, and go to state 6
+    DEFINE_STMT_1  shift, and go to state 7
+    DEFINE_STMT_2  shift, and go to state 8
+
+    $default  reduce using rule 32 (MacroDefinition)
+
+    MacroDefinition     go to state 31
+    MacroDefStatement   go to state 11
+    DefineStmt          go to state 12
+    DefineStmt0         go to state 13
+    DefineStmt1         go to state 14
+    DefineStmt2         go to state 15
+    MacroDefExpression  go to state 16
+    DefineExpr          go to state 17
+    DefineExpr0         go to state 18
+    DefineExpr1         go to state 19
+    DefineExpr2         go to state 20
+
+
+State 17
+
+   57 MacroDefExpression: DefineExpr . Identifier LRbracket ThreeArgs RRbracket LRbracket Expression RRbracket
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 32
+
+
+State 18
+
+   58 MacroDefExpression: DefineExpr0 . Identifier LRbracket RRbracket LRbracket Expression RRbracket
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 33
+
+
+State 19
+
+   59 MacroDefExpression: DefineExpr1 . Identifier LRbracket OneArg RRbracket LRbracket Expression RRbracket
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 34
+
+
+State 20
+
+   60 MacroDefExpression: DefineExpr2 . Identifier LRbracket TwoArgs RRbracket LRbracket Expression RRbracket
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 35
+
+
+State 21
+
+    0 $accept: Goal $end .
+
+    $default  accept
+
+
+State 22
+
+    3 Class: CLASS .
+
+    $default  reduce using rule 3 (Class)
+
+
+State 23
+
+    1 Goal: MacroDefinition MainClass . MultipleTypeDeclaration
+
+    CLASS  shift, and go to state 22
+
+    $default  reduce using rule 9 (MultipleTypeDeclaration)
+
+    Class                    go to state 36
+    MultipleTypeDeclaration  go to state 37
+
+
+State 24
+
+    2 MainClass: Class . Identifier LCbracket MainFuntion RCbracket
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 38
+
+
+State 25
+
+   31 MacroDefinition: MacroDefStatement MacroDefinition .
+
+    $default  reduce using rule 31 (MacroDefinition)
+
+
+State 26
+
+  100 Identifier: IDENTIFIER .
+
+    $default  reduce using rule 100 (Identifier)
+
+
+State 27
+
+   33 MacroDefStatement: DefineStmt Identifier . LRbracket ThreeArgs RRbracket LCbracket Statement RCbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 40
+
+
+State 28
+
+   34 MacroDefStatement: DefineStmt0 Identifier . LRbracket RRbracket LCbracket Statement RCbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 41
+
+
+State 29
+
+   35 MacroDefStatement: DefineStmt1 Identifier . LRbracket OneArg RRbracket LCbracket Statement RCbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 42
+
+
+State 30
+
+   36 MacroDefStatement: DefineStmt2 Identifier . LRbracket TwoArgs RRbracket LCbracket Statement RCbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 43
+
+
+State 31
+
+   30 MacroDefinition: MacroDefExpression MacroDefinition .
+
+    $default  reduce using rule 30 (MacroDefinition)
+
+
+State 32
+
+   57 MacroDefExpression: DefineExpr Identifier . LRbracket ThreeArgs RRbracket LRbracket Expression RRbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 44
+
+
+State 33
+
+   58 MacroDefExpression: DefineExpr0 Identifier . LRbracket RRbracket LRbracket Expression RRbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 45
+
+
+State 34
+
+   59 MacroDefExpression: DefineExpr1 Identifier . LRbracket OneArg RRbracket LRbracket Expression RRbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 46
+
+
+State 35
+
+   60 MacroDefExpression: DefineExpr2 Identifier . LRbracket TwoArgs RRbracket LRbracket Expression RRbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 47
+
+
+State 36
+
+    8 MultipleTypeDeclaration: Class . Identifier WithExtends
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 48
+
+
+State 37
+
+    1 Goal: MacroDefinition MainClass MultipleTypeDeclaration .
+
+    $default  reduce using rule 1 (Goal)
+
+
+State 38
+
+    2 MainClass: Class Identifier . LCbracket MainFuntion RCbracket
+
+    LEFT_CURL_BRACKET  shift, and go to state 49
+
+    LCbracket  go to state 50
+
+
+State 39
+
+  101 LRbracket: LEFT_ROUND_BRACKET .
+
+    $default  reduce using rule 101 (LRbracket)
+
+
+State 40
+
+   33 MacroDefStatement: DefineStmt Identifier LRbracket . ThreeArgs RRbracket LCbracket Statement RCbracket
+
+    IDENTIFIER  shift, and go to state 26
+
+    ThreeArgs   go to state 51
+    Identifier  go to state 52
+
+
+State 41
+
+   34 MacroDefStatement: DefineStmt0 Identifier LRbracket . RRbracket LCbracket Statement RCbracket
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 54
+
+
+State 42
+
+   35 MacroDefStatement: DefineStmt1 Identifier LRbracket . OneArg RRbracket LCbracket Statement RCbracket
+
+    IDENTIFIER  shift, and go to state 26
+
+    OneArg      go to state 55
+    Identifier  go to state 56
+
+
+State 43
+
+   36 MacroDefStatement: DefineStmt2 Identifier LRbracket . TwoArgs RRbracket LCbracket Statement RCbracket
+
+    IDENTIFIER  shift, and go to state 26
+
+    TwoArgs     go to state 57
+    Identifier  go to state 58
+
+
+State 44
+
+   57 MacroDefExpression: DefineExpr Identifier LRbracket . ThreeArgs RRbracket LRbracket Expression RRbracket
+
+    IDENTIFIER  shift, and go to state 26
+
+    ThreeArgs   go to state 59
+    Identifier  go to state 52
+
+
+State 45
+
+   58 MacroDefExpression: DefineExpr0 Identifier LRbracket . RRbracket LRbracket Expression RRbracket
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 60
+
+
+State 46
+
+   59 MacroDefExpression: DefineExpr1 Identifier LRbracket . OneArg RRbracket LRbracket Expression RRbracket
+
+    IDENTIFIER  shift, and go to state 26
+
+    OneArg      go to state 61
+    Identifier  go to state 56
+
+
+State 47
+
+   60 MacroDefExpression: DefineExpr2 Identifier LRbracket . TwoArgs RRbracket LRbracket Expression RRbracket
+
+    IDENTIFIER  shift, and go to state 26
+
+    TwoArgs     go to state 62
+    Identifier  go to state 58
+
+
+State 48
+
+    8 MultipleTypeDeclaration: Class Identifier . WithExtends
+
+    LEFT_CURL_BRACKET  shift, and go to state 49
+    EXTENDS            shift, and go to state 63
+
+    WithExtends  go to state 64
+    Extends      go to state 65
+    LCbracket    go to state 66
+
+
+State 49
+
+  105 LCbracket: LEFT_CURL_BRACKET .
+
+    $default  reduce using rule 105 (LCbracket)
+
+
+State 50
+
+    2 MainClass: Class Identifier LCbracket . MainFuntion RCbracket
+
+    PUBLIC_STATIC_VOID_MAIN  shift, and go to state 67
+
+    MainFuntion  go to state 68
+    PublicMain   go to state 69
+
+
+State 51
+
+   33 MacroDefStatement: DefineStmt Identifier LRbracket ThreeArgs . RRbracket LCbracket Statement RCbracket
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 70
+
+
+State 52
+
+   94 ThreeArgs: Identifier . Comma Identifier Comma Identifier MoreArgs
+
+    COMMA  shift, and go to state 71
+
+    Comma  go to state 72
+
+
+State 53
+
+  102 RRbracket: RIGHT_ROUND_BRACKET .
+
+    $default  reduce using rule 102 (RRbracket)
+
+
+State 54
+
+   34 MacroDefStatement: DefineStmt0 Identifier LRbracket RRbracket . LCbracket Statement RCbracket
+
+    LEFT_CURL_BRACKET  shift, and go to state 49
+
+    LCbracket  go to state 73
+
+
+State 55
+
+   35 MacroDefStatement: DefineStmt1 Identifier LRbracket OneArg . RRbracket LCbracket Statement RCbracket
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 74
+
+
+State 56
+
+   98 OneArg: Identifier .
+
+    $default  reduce using rule 98 (OneArg)
+
+
+State 57
+
+   36 MacroDefStatement: DefineStmt2 Identifier LRbracket TwoArgs . RRbracket LCbracket Statement RCbracket
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 75
+
+
+State 58
+
+   97 TwoArgs: Identifier . Comma Identifier
+
+    COMMA  shift, and go to state 71
+
+    Comma  go to state 76
+
+
+State 59
+
+   57 MacroDefExpression: DefineExpr Identifier LRbracket ThreeArgs . RRbracket LRbracket Expression RRbracket
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 77
+
+
+State 60
+
+   58 MacroDefExpression: DefineExpr0 Identifier LRbracket RRbracket . LRbracket Expression RRbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 78
+
+
+State 61
+
+   59 MacroDefExpression: DefineExpr1 Identifier LRbracket OneArg . RRbracket LRbracket Expression RRbracket
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 79
+
+
+State 62
+
+   60 MacroDefExpression: DefineExpr2 Identifier LRbracket TwoArgs . RRbracket LRbracket Expression RRbracket
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 80
+
+
+State 63
+
+   12 Extends: EXTENDS .
+
+    $default  reduce using rule 12 (Extends)
+
+
+State 64
+
+    8 MultipleTypeDeclaration: Class Identifier WithExtends .
+
+    $default  reduce using rule 8 (MultipleTypeDeclaration)
+
+
+State 65
+
+   10 WithExtends: Extends . Identifier LCbracket MultipleType MultipleMethod RCbracket MultipleTypeDeclaration
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 81
+
+
+State 66
+
+   11 WithExtends: LCbracket . MultipleType MultipleMethod RCbracket MultipleTypeDeclaration
+
+    IDENTIFIER  shift, and go to state 26
+    INT         shift, and go to state 82
+    BOOLEAN     shift, and go to state 83
+
+    $default  reduce using rule 14 (MultipleType)
+
+    MultipleType  go to state 84
+    Type          go to state 85
+    Int           go to state 86
+    Boolean       go to state 87
+    Identifier    go to state 88
+
+
+State 67
+
+    5 PublicMain: PUBLIC_STATIC_VOID_MAIN .
+
+    $default  reduce using rule 5 (PublicMain)
+
+
+State 68
+
+    2 MainClass: Class Identifier LCbracket MainFuntion . RCbracket
+
+    RIGHT_CURL_BRACKET  shift, and go to state 89
+
+    RCbracket  go to state 90
+
+
+State 69
+
+    4 MainFuntion: PublicMain . LRbracket String LSbracket RSbracket Identifier RRbracket LCbracket MainFunctionStatement RCbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 91
+
+
+State 70
+
+   33 MacroDefStatement: DefineStmt Identifier LRbracket ThreeArgs RRbracket . LCbracket Statement RCbracket
+
+    LEFT_CURL_BRACKET  shift, and go to state 49
+
+    LCbracket  go to state 92
+
+
+State 71
+
+  107 Comma: COMMA .
+
+    $default  reduce using rule 107 (Comma)
+
+
+State 72
+
+   94 ThreeArgs: Identifier Comma . Identifier Comma Identifier MoreArgs
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 93
+
+
+State 73
+
+   34 MacroDefStatement: DefineStmt0 Identifier LRbracket RRbracket LCbracket . Statement RCbracket
+
+    LEFT_CURL_BRACKET   shift, and go to state 49
+    IDENTIFIER          shift, and go to state 26
+    IF                  shift, and go to state 94
+    WHILE               shift, and go to state 95
+    SYSTEM_OUT_PRINTLN  shift, and go to state 96
+
+    $default  reduce using rule 46 (Statement)
+
+    Statement   go to state 97
+    SysOut      go to state 98
+    If          go to state 99
+    While       go to state 100
+    Identifier  go to state 101
+    LCbracket   go to state 102
+
+
+State 74
+
+   35 MacroDefStatement: DefineStmt1 Identifier LRbracket OneArg RRbracket . LCbracket Statement RCbracket
+
+    LEFT_CURL_BRACKET  shift, and go to state 49
+
+    LCbracket  go to state 103
+
+
+State 75
+
+   36 MacroDefStatement: DefineStmt2 Identifier LRbracket TwoArgs RRbracket . LCbracket Statement RCbracket
+
+    LEFT_CURL_BRACKET  shift, and go to state 49
+
+    LCbracket  go to state 104
+
+
+State 76
+
+   97 TwoArgs: Identifier Comma . Identifier
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 105
+
+
+State 77
+
+   57 MacroDefExpression: DefineExpr Identifier LRbracket ThreeArgs RRbracket . LRbracket Expression RRbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 106
+
+
+State 78
+
+   58 MacroDefExpression: DefineExpr0 Identifier LRbracket RRbracket LRbracket . Expression RRbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    Expression         go to state 113
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 79
+
+   59 MacroDefExpression: DefineExpr1 Identifier LRbracket OneArg RRbracket . LRbracket Expression RRbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 122
+
+
+State 80
+
+   60 MacroDefExpression: DefineExpr2 Identifier LRbracket TwoArgs RRbracket . LRbracket Expression RRbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 123
+
+
+State 81
+
+   10 WithExtends: Extends Identifier . LCbracket MultipleType MultipleMethod RCbracket MultipleTypeDeclaration
+
+    LEFT_CURL_BRACKET  shift, and go to state 49
+
+    LCbracket  go to state 124
+
+
+State 82
+
+   90 Int: INT .
+
+    $default  reduce using rule 90 (Int)
+
+
+State 83
+
+   93 Boolean: BOOLEAN .
+
+    $default  reduce using rule 93 (Boolean)
+
+
+State 84
+
+   11 WithExtends: LCbracket MultipleType . MultipleMethod RCbracket MultipleTypeDeclaration
+
+    PUBLIC  shift, and go to state 125
+
+    $default  reduce using rule 16 (MultipleMethod)
+
+    MultipleMethod  go to state 126
+    Public          go to state 127
+
+
+State 85
+
+   13 MultipleType: Type . Identifier Semicolon MultipleType
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 128
+
+
+State 86
+
+   25 Type: Int . IntBrackets
+
+    LEFT_SQR_BRACKET  shift, and go to state 129
+
+    $default  reduce using rule 29 (IntBrackets)
+
+    IntBrackets  go to state 130
+    LSbracket    go to state 131
+
+
+State 87
+
+   26 Type: Boolean .
+
+    $default  reduce using rule 26 (Type)
+
+
+State 88
+
+   27 Type: Identifier .
+
+    $default  reduce using rule 27 (Type)
+
+
+State 89
+
+  106 RCbracket: RIGHT_CURL_BRACKET .
+
+    $default  reduce using rule 106 (RCbracket)
+
+
+State 90
+
+    2 MainClass: Class Identifier LCbracket MainFuntion RCbracket .
+
+    $default  reduce using rule 2 (MainClass)
+
+
+State 91
+
+    4 MainFuntion: PublicMain LRbracket . String LSbracket RSbracket Identifier RRbracket LCbracket MainFunctionStatement RCbracket
+
+    STRING  shift, and go to state 132
+
+    String  go to state 133
+
+
+State 92
+
+   33 MacroDefStatement: DefineStmt Identifier LRbracket ThreeArgs RRbracket LCbracket . Statement RCbracket
+
+    LEFT_CURL_BRACKET   shift, and go to state 49
+    IDENTIFIER          shift, and go to state 26
+    IF                  shift, and go to state 94
+    WHILE               shift, and go to state 95
+    SYSTEM_OUT_PRINTLN  shift, and go to state 96
+
+    $default  reduce using rule 46 (Statement)
+
+    Statement   go to state 134
+    SysOut      go to state 98
+    If          go to state 99
+    While       go to state 100
+    Identifier  go to state 101
+    LCbracket   go to state 102
+
+
+State 93
+
+   94 ThreeArgs: Identifier Comma Identifier . Comma Identifier MoreArgs
+
+    COMMA  shift, and go to state 71
+
+    Comma  go to state 135
+
+
+State 94
+
+   54 If: IF .
+
+    $default  reduce using rule 54 (If)
+
+
+State 95
+
+   56 While: WHILE .
+
+    $default  reduce using rule 56 (While)
+
+
+State 96
+
+   51 SysOut: SYSTEM_OUT_PRINTLN .
+
+    $default  reduce using rule 51 (SysOut)
+
+
+State 97
+
+   34 MacroDefStatement: DefineStmt0 Identifier LRbracket RRbracket LCbracket Statement . RCbracket
+
+    RIGHT_CURL_BRACKET  shift, and go to state 89
+
+    RCbracket  go to state 136
+
+
+State 98
+
+   42 Statement: SysOut . LRbracket Expression RRbracket Semicolon Statement
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 137
+
+
+State 99
+
+   43 Statement: If . LRbracket Expression RRbracket Statement ElsePart
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 138
+
+
+State 100
+
+   45 Statement: While . LRbracket Expression RRbracket Statement Statement
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 139
+
+
+State 101
+
+   44 Statement: Identifier . IdentifierStatement
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    LEFT_SQR_BRACKET    shift, and go to state 129
+    ASSIGN              shift, and go to state 140
+
+    IdentifierStatement  go to state 141
+    Assign               go to state 142
+    LRbracket            go to state 143
+    LSbracket            go to state 144
+
+
+State 102
+
+   41 Statement: LCbracket . Statement RCbracket
+
+    LEFT_CURL_BRACKET   shift, and go to state 49
+    IDENTIFIER          shift, and go to state 26
+    IF                  shift, and go to state 94
+    WHILE               shift, and go to state 95
+    SYSTEM_OUT_PRINTLN  shift, and go to state 96
+
+    $default  reduce using rule 46 (Statement)
+
+    Statement   go to state 145
+    SysOut      go to state 98
+    If          go to state 99
+    While       go to state 100
+    Identifier  go to state 101
+    LCbracket   go to state 102
+
+
+State 103
+
+   35 MacroDefStatement: DefineStmt1 Identifier LRbracket OneArg RRbracket LCbracket . Statement RCbracket
+
+    LEFT_CURL_BRACKET   shift, and go to state 49
+    IDENTIFIER          shift, and go to state 26
+    IF                  shift, and go to state 94
+    WHILE               shift, and go to state 95
+    SYSTEM_OUT_PRINTLN  shift, and go to state 96
+
+    $default  reduce using rule 46 (Statement)
+
+    Statement   go to state 146
+    SysOut      go to state 98
+    If          go to state 99
+    While       go to state 100
+    Identifier  go to state 101
+    LCbracket   go to state 102
+
+
+State 104
+
+   36 MacroDefStatement: DefineStmt2 Identifier LRbracket TwoArgs RRbracket LCbracket . Statement RCbracket
+
+    LEFT_CURL_BRACKET   shift, and go to state 49
+    IDENTIFIER          shift, and go to state 26
+    IF                  shift, and go to state 94
+    WHILE               shift, and go to state 95
+    SYSTEM_OUT_PRINTLN  shift, and go to state 96
+
+    $default  reduce using rule 46 (Statement)
+
+    Statement   go to state 147
+    SysOut      go to state 98
+    If          go to state 99
+    While       go to state 100
+    Identifier  go to state 101
+    LCbracket   go to state 102
+
+
+State 105
+
+   97 TwoArgs: Identifier Comma Identifier .
+
+    $default  reduce using rule 97 (TwoArgs)
+
+
+State 106
+
+   57 MacroDefExpression: DefineExpr Identifier LRbracket ThreeArgs RRbracket LRbracket . Expression RRbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    Expression         go to state 148
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 107
+
+   99 Integer: INTEGER_LITERAL .
+
+    $default  reduce using rule 99 (Integer)
+
+
+State 108
+
+   85 BoolVal: TRUE .
+
+    $default  reduce using rule 85 (BoolVal)
+
+
+State 109
+
+   86 BoolVal: FALSE .
+
+    $default  reduce using rule 86 (BoolVal)
+
+
+State 110
+
+   87 This: THIS .
+
+    $default  reduce using rule 87 (This)
+
+
+State 111
+
+   89 New: NEW .
+
+    $default  reduce using rule 89 (New)
+
+
+State 112
+
+   91 Not: NOT .
+
+    $default  reduce using rule 91 (Not)
+
+
+State 113
+
+   58 MacroDefExpression: DefineExpr0 Identifier LRbracket RRbracket LRbracket Expression . RRbracket
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 149
+
+
+State 114
+
+   65 Expression: PrimaryExpression . SubExpression
+
+    LEFT_SQR_BRACKET  shift, and go to state 129
+    OPERATOR          shift, and go to state 150
+    DOT               shift, and go to state 151
+    LENGTH            shift, and go to state 152
+
+    LEFT_SQR_BRACKET  [reduce using rule 71 (SubExpression)]
+    OPERATOR          [reduce using rule 71 (SubExpression)]
+    DOT               [reduce using rule 71 (SubExpression)]
+    LENGTH            [reduce using rule 71 (SubExpression)]
+    $default          reduce using rule 71 (SubExpression)
+
+    SubExpression  go to state 153
+    Operation      go to state 154
+    Length         go to state 155
+    Dot            go to state 156
+    LSbracket      go to state 157
+
+
+State 115
+
+   78 PrimaryExpression: BoolVal .
+
+    $default  reduce using rule 78 (PrimaryExpression)
+
+
+State 116
+
+   80 PrimaryExpression: This .
+
+    $default  reduce using rule 80 (PrimaryExpression)
+
+
+State 117
+
+   81 PrimaryExpression: New . Int LSbracket Expression RSbracket
+   82                  | New . Identifier LRbracket RRbracket
+
+    IDENTIFIER  shift, and go to state 26
+    INT         shift, and go to state 82
+
+    Int         go to state 158
+    Identifier  go to state 159
+
+
+State 118
+
+   83 PrimaryExpression: Not . Expression
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    Expression         go to state 160
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 119
+
+   77 PrimaryExpression: Integer .
+
+    $default  reduce using rule 77 (PrimaryExpression)
+
+
+State 120
+
+   66 Expression: Identifier . LRbracket NonZeroExpression RRbracket
+   79 PrimaryExpression: Identifier .
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    $default  reduce using rule 79 (PrimaryExpression)
+
+    LRbracket  go to state 161
+
+
+State 121
+
+   84 PrimaryExpression: LRbracket . Expression RRbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    Expression         go to state 162
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 122
+
+   59 MacroDefExpression: DefineExpr1 Identifier LRbracket OneArg RRbracket LRbracket . Expression RRbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    Expression         go to state 163
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 123
+
+   60 MacroDefExpression: DefineExpr2 Identifier LRbracket TwoArgs RRbracket LRbracket . Expression RRbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    Expression         go to state 164
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 124
+
+   10 WithExtends: Extends Identifier LCbracket . MultipleType MultipleMethod RCbracket MultipleTypeDeclaration
+
+    IDENTIFIER  shift, and go to state 26
+    INT         shift, and go to state 82
+    BOOLEAN     shift, and go to state 83
+
+    $default  reduce using rule 14 (MultipleType)
+
+    MultipleType  go to state 165
+    Type          go to state 85
+    Int           go to state 86
+    Boolean       go to state 87
+    Identifier    go to state 88
+
+
+State 125
+
+   19 Public: PUBLIC .
+
+    $default  reduce using rule 19 (Public)
+
+
+State 126
+
+   11 WithExtends: LCbracket MultipleType MultipleMethod . RCbracket MultipleTypeDeclaration
+
+    RIGHT_CURL_BRACKET  shift, and go to state 89
+
+    RCbracket  go to state 166
+
+
+State 127
+
+   15 MultipleMethod: Public . Type Identifier LRbracket MultipleTypeArgs RRbracket LCbracket MultipleTypeArgsStatement Return Expression Semicolon RCbracket MultipleMethod
+
+    IDENTIFIER  shift, and go to state 26
+    INT         shift, and go to state 82
+    BOOLEAN     shift, and go to state 83
+
+    Type        go to state 167
+    Int         go to state 86
+    Boolean     go to state 87
+    Identifier  go to state 88
+
+
+State 128
+
+   13 MultipleType: Type Identifier . Semicolon MultipleType
+
+    SEMI_COLON  shift, and go to state 168
+
+    Semicolon  go to state 169
+
+
+State 129
+
+  103 LSbracket: LEFT_SQR_BRACKET .
+
+    $default  reduce using rule 103 (LSbracket)
+
+
+State 130
+
+   25 Type: Int IntBrackets .
+
+    $default  reduce using rule 25 (Type)
+
+
+State 131
+
+   28 IntBrackets: LSbracket . RSbracket
+
+    RIGHT_SQR_BRACKET  shift, and go to state 170
+
+    RSbracket  go to state 171
+
+
+State 132
+
+    6 String: STRING .
+
+    $default  reduce using rule 6 (String)
+
+
+State 133
+
+    4 MainFuntion: PublicMain LRbracket String . LSbracket RSbracket Identifier RRbracket LCbracket MainFunctionStatement RCbracket
+
+    LEFT_SQR_BRACKET  shift, and go to state 129
+
+    LSbracket  go to state 172
+
+
+State 134
+
+   33 MacroDefStatement: DefineStmt Identifier LRbracket ThreeArgs RRbracket LCbracket Statement . RCbracket
+
+    RIGHT_CURL_BRACKET  shift, and go to state 89
+
+    RCbracket  go to state 173
+
+
+State 135
+
+   94 ThreeArgs: Identifier Comma Identifier Comma . Identifier MoreArgs
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 174
+
+
+State 136
+
+   34 MacroDefStatement: DefineStmt0 Identifier LRbracket RRbracket LCbracket Statement RCbracket .
+
+    $default  reduce using rule 34 (MacroDefStatement)
+
+
+State 137
+
+   42 Statement: SysOut LRbracket . Expression RRbracket Semicolon Statement
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    Expression         go to state 175
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 138
+
+   43 Statement: If LRbracket . Expression RRbracket Statement ElsePart
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    Expression         go to state 176
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 139
+
+   45 Statement: While LRbracket . Expression RRbracket Statement Statement
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    Expression         go to state 177
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 140
+
+   53 Assign: ASSIGN .
+
+    $default  reduce using rule 53 (Assign)
+
+
+State 141
+
+   44 Statement: Identifier IdentifierStatement .
+
+    $default  reduce using rule 44 (Statement)
+
+
+State 142
+
+   47 IdentifierStatement: Assign . Expression Semicolon Statement
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    Expression         go to state 178
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 143
+
+   49 IdentifierStatement: LRbracket . NonZeroExpression RRbracket Semicolon
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    $default  reduce using rule 73 (NonZeroExpression)
+
+    Expression         go to state 179
+    NonZeroExpression  go to state 180
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 144
+
+   48 IdentifierStatement: LSbracket . Expression RSbracket Assign Expression Semicolon Statement
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    Expression         go to state 181
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 145
+
+   41 Statement: LCbracket Statement . RCbracket
+
+    RIGHT_CURL_BRACKET  shift, and go to state 89
+
+    RCbracket  go to state 182
+
+
+State 146
+
+   35 MacroDefStatement: DefineStmt1 Identifier LRbracket OneArg RRbracket LCbracket Statement . RCbracket
+
+    RIGHT_CURL_BRACKET  shift, and go to state 89
+
+    RCbracket  go to state 183
+
+
+State 147
+
+   36 MacroDefStatement: DefineStmt2 Identifier LRbracket TwoArgs RRbracket LCbracket Statement . RCbracket
+
+    RIGHT_CURL_BRACKET  shift, and go to state 89
+
+    RCbracket  go to state 184
+
+
+State 148
+
+   57 MacroDefExpression: DefineExpr Identifier LRbracket ThreeArgs RRbracket LRbracket Expression . RRbracket
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 185
+
+
+State 149
+
+   58 MacroDefExpression: DefineExpr0 Identifier LRbracket RRbracket LRbracket Expression RRbracket .
+
+    $default  reduce using rule 58 (MacroDefExpression)
+
+
+State 150
+
+   76 Operation: OPERATOR .
+
+    $default  reduce using rule 76 (Operation)
+
+
+State 151
+
+   92 Dot: DOT .
+
+    $default  reduce using rule 92 (Dot)
+
+
+State 152
+
+   88 Length: LENGTH .
+
+    $default  reduce using rule 88 (Length)
+
+
+State 153
+
+   65 Expression: PrimaryExpression SubExpression .
+
+    $default  reduce using rule 65 (Expression)
+
+
+State 154
+
+   67 SubExpression: Operation . PrimaryExpression
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    PrimaryExpression  go to state 186
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 187
+    LRbracket          go to state 121
+
+
+State 155
+
+   69 SubExpression: Length .
+
+    $default  reduce using rule 69 (SubExpression)
+
+
+State 156
+
+   70 SubExpression: Dot . Identifier LRbracket NonZeroExpression RRbracket
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 188
+
+
+State 157
+
+   68 SubExpression: LSbracket . PrimaryExpression RSbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    PrimaryExpression  go to state 189
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 187
+    LRbracket          go to state 121
+
+
+State 158
+
+   81 PrimaryExpression: New Int . LSbracket Expression RSbracket
+
+    LEFT_SQR_BRACKET  shift, and go to state 129
+
+    LSbracket  go to state 190
+
+
+State 159
+
+   82 PrimaryExpression: New Identifier . LRbracket RRbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 191
+
+
+State 160
+
+   83 PrimaryExpression: Not Expression .
+
+    $default  reduce using rule 83 (PrimaryExpression)
+
+
+State 161
+
+   66 Expression: Identifier LRbracket . NonZeroExpression RRbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    $default  reduce using rule 73 (NonZeroExpression)
+
+    Expression         go to state 179
+    NonZeroExpression  go to state 192
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 162
+
+   84 PrimaryExpression: LRbracket Expression . RRbracket
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 193
+
+
+State 163
+
+   59 MacroDefExpression: DefineExpr1 Identifier LRbracket OneArg RRbracket LRbracket Expression . RRbracket
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 194
+
+
+State 164
+
+   60 MacroDefExpression: DefineExpr2 Identifier LRbracket TwoArgs RRbracket LRbracket Expression . RRbracket
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 195
+
+
+State 165
+
+   10 WithExtends: Extends Identifier LCbracket MultipleType . MultipleMethod RCbracket MultipleTypeDeclaration
+
+    PUBLIC  shift, and go to state 125
+
+    $default  reduce using rule 16 (MultipleMethod)
+
+    MultipleMethod  go to state 196
+    Public          go to state 127
+
+
+State 166
+
+   11 WithExtends: LCbracket MultipleType MultipleMethod RCbracket . MultipleTypeDeclaration
+
+    CLASS  shift, and go to state 22
+
+    $default  reduce using rule 9 (MultipleTypeDeclaration)
+
+    Class                    go to state 36
+    MultipleTypeDeclaration  go to state 197
+
+
+State 167
+
+   15 MultipleMethod: Public Type . Identifier LRbracket MultipleTypeArgs RRbracket LCbracket MultipleTypeArgsStatement Return Expression Semicolon RCbracket MultipleMethod
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 198
+
+
+State 168
+
+   52 Semicolon: SEMI_COLON .
+
+    $default  reduce using rule 52 (Semicolon)
+
+
+State 169
+
+   13 MultipleType: Type Identifier Semicolon . MultipleType
+
+    IDENTIFIER  shift, and go to state 26
+    INT         shift, and go to state 82
+    BOOLEAN     shift, and go to state 83
+
+    $default  reduce using rule 14 (MultipleType)
+
+    MultipleType  go to state 199
+    Type          go to state 85
+    Int           go to state 86
+    Boolean       go to state 87
+    Identifier    go to state 88
+
+
+State 170
+
+  104 RSbracket: RIGHT_SQR_BRACKET .
+
+    $default  reduce using rule 104 (RSbracket)
+
+
+State 171
+
+   28 IntBrackets: LSbracket RSbracket .
+
+    $default  reduce using rule 28 (IntBrackets)
+
+
+State 172
+
+    4 MainFuntion: PublicMain LRbracket String LSbracket . RSbracket Identifier RRbracket LCbracket MainFunctionStatement RCbracket
+
+    RIGHT_SQR_BRACKET  shift, and go to state 170
+
+    RSbracket  go to state 200
+
+
+State 173
+
+   33 MacroDefStatement: DefineStmt Identifier LRbracket ThreeArgs RRbracket LCbracket Statement RCbracket .
+
+    $default  reduce using rule 33 (MacroDefStatement)
+
+
+State 174
+
+   94 ThreeArgs: Identifier Comma Identifier Comma Identifier . MoreArgs
+
+    COMMA  shift, and go to state 71
+
+    $default  reduce using rule 96 (MoreArgs)
+
+    MoreArgs  go to state 201
+    Comma     go to state 202
+
+
+State 175
+
+   42 Statement: SysOut LRbracket Expression . RRbracket Semicolon Statement
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 203
+
+
+State 176
+
+   43 Statement: If LRbracket Expression . RRbracket Statement ElsePart
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 204
+
+
+State 177
+
+   45 Statement: While LRbracket Expression . RRbracket Statement Statement
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 205
+
+
+State 178
+
+   47 IdentifierStatement: Assign Expression . Semicolon Statement
+
+    SEMI_COLON  shift, and go to state 168
+
+    Semicolon  go to state 206
+
+
+State 179
+
+   72 NonZeroExpression: Expression . PositiveExpression
+
+    COMMA  shift, and go to state 71
+
+    $default  reduce using rule 75 (PositiveExpression)
+
+    PositiveExpression  go to state 207
+    Comma               go to state 208
+
+
+State 180
+
+   49 IdentifierStatement: LRbracket NonZeroExpression . RRbracket Semicolon
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 209
+
+
+State 181
+
+   48 IdentifierStatement: LSbracket Expression . RSbracket Assign Expression Semicolon Statement
+
+    RIGHT_SQR_BRACKET  shift, and go to state 170
+
+    RSbracket  go to state 210
+
+
+State 182
+
+   41 Statement: LCbracket Statement RCbracket .
+
+    $default  reduce using rule 41 (Statement)
+
+
+State 183
+
+   35 MacroDefStatement: DefineStmt1 Identifier LRbracket OneArg RRbracket LCbracket Statement RCbracket .
+
+    $default  reduce using rule 35 (MacroDefStatement)
+
+
+State 184
+
+   36 MacroDefStatement: DefineStmt2 Identifier LRbracket TwoArgs RRbracket LCbracket Statement RCbracket .
+
+    $default  reduce using rule 36 (MacroDefStatement)
+
+
+State 185
+
+   57 MacroDefExpression: DefineExpr Identifier LRbracket ThreeArgs RRbracket LRbracket Expression RRbracket .
+
+    $default  reduce using rule 57 (MacroDefExpression)
+
+
+State 186
+
+   67 SubExpression: Operation PrimaryExpression .
+
+    $default  reduce using rule 67 (SubExpression)
+
+
+State 187
+
+   79 PrimaryExpression: Identifier .
+
+    $default  reduce using rule 79 (PrimaryExpression)
+
+
+State 188
+
+   70 SubExpression: Dot Identifier . LRbracket NonZeroExpression RRbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 211
+
+
+State 189
+
+   68 SubExpression: LSbracket PrimaryExpression . RSbracket
+
+    RIGHT_SQR_BRACKET  shift, and go to state 170
+
+    RSbracket  go to state 212
+
+
+State 190
+
+   81 PrimaryExpression: New Int LSbracket . Expression RSbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    Expression         go to state 213
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 191
+
+   82 PrimaryExpression: New Identifier LRbracket . RRbracket
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 214
+
+
+State 192
+
+   66 Expression: Identifier LRbracket NonZeroExpression . RRbracket
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 215
+
+
+State 193
+
+   84 PrimaryExpression: LRbracket Expression RRbracket .
+
+    $default  reduce using rule 84 (PrimaryExpression)
+
+
+State 194
+
+   59 MacroDefExpression: DefineExpr1 Identifier LRbracket OneArg RRbracket LRbracket Expression RRbracket .
+
+    $default  reduce using rule 59 (MacroDefExpression)
+
+
+State 195
+
+   60 MacroDefExpression: DefineExpr2 Identifier LRbracket TwoArgs RRbracket LRbracket Expression RRbracket .
+
+    $default  reduce using rule 60 (MacroDefExpression)
+
+
+State 196
+
+   10 WithExtends: Extends Identifier LCbracket MultipleType MultipleMethod . RCbracket MultipleTypeDeclaration
+
+    RIGHT_CURL_BRACKET  shift, and go to state 89
+
+    RCbracket  go to state 216
+
+
+State 197
+
+   11 WithExtends: LCbracket MultipleType MultipleMethod RCbracket MultipleTypeDeclaration .
+
+    $default  reduce using rule 11 (WithExtends)
+
+
+State 198
+
+   15 MultipleMethod: Public Type Identifier . LRbracket MultipleTypeArgs RRbracket LCbracket MultipleTypeArgsStatement Return Expression Semicolon RCbracket MultipleMethod
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 217
+
+
+State 199
+
+   13 MultipleType: Type Identifier Semicolon MultipleType .
+
+    $default  reduce using rule 13 (MultipleType)
+
+
+State 200
+
+    4 MainFuntion: PublicMain LRbracket String LSbracket RSbracket . Identifier RRbracket LCbracket MainFunctionStatement RCbracket
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 218
+
+
+State 201
+
+   94 ThreeArgs: Identifier Comma Identifier Comma Identifier MoreArgs .
+
+    $default  reduce using rule 94 (ThreeArgs)
+
+
+State 202
+
+   95 MoreArgs: Comma . Identifier MoreArgs
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 219
+
+
+State 203
+
+   42 Statement: SysOut LRbracket Expression RRbracket . Semicolon Statement
+
+    SEMI_COLON  shift, and go to state 168
+
+    Semicolon  go to state 220
+
+
+State 204
+
+   43 Statement: If LRbracket Expression RRbracket . Statement ElsePart
+
+    LEFT_CURL_BRACKET   shift, and go to state 49
+    IDENTIFIER          shift, and go to state 26
+    IF                  shift, and go to state 94
+    WHILE               shift, and go to state 95
+    SYSTEM_OUT_PRINTLN  shift, and go to state 96
+
+    $default  reduce using rule 46 (Statement)
+
+    Statement   go to state 221
+    SysOut      go to state 98
+    If          go to state 99
+    While       go to state 100
+    Identifier  go to state 101
+    LCbracket   go to state 102
+
+
+State 205
+
+   45 Statement: While LRbracket Expression RRbracket . Statement Statement
+
+    LEFT_CURL_BRACKET   shift, and go to state 49
+    IDENTIFIER          shift, and go to state 26
+    IF                  shift, and go to state 94
+    WHILE               shift, and go to state 95
+    SYSTEM_OUT_PRINTLN  shift, and go to state 96
+
+    LEFT_CURL_BRACKET   [reduce using rule 46 (Statement)]
+    IDENTIFIER          [reduce using rule 46 (Statement)]
+    IF                  [reduce using rule 46 (Statement)]
+    WHILE               [reduce using rule 46 (Statement)]
+    SYSTEM_OUT_PRINTLN  [reduce using rule 46 (Statement)]
+    $default            reduce using rule 46 (Statement)
+
+    Statement   go to state 222
+    SysOut      go to state 98
+    If          go to state 99
+    While       go to state 100
+    Identifier  go to state 101
+    LCbracket   go to state 102
+
+
+State 206
+
+   47 IdentifierStatement: Assign Expression Semicolon . Statement
+
+    LEFT_CURL_BRACKET   shift, and go to state 49
+    IDENTIFIER          shift, and go to state 26
+    IF                  shift, and go to state 94
+    WHILE               shift, and go to state 95
+    SYSTEM_OUT_PRINTLN  shift, and go to state 96
+
+    LEFT_CURL_BRACKET   [reduce using rule 46 (Statement)]
+    IDENTIFIER          [reduce using rule 46 (Statement)]
+    IF                  [reduce using rule 46 (Statement)]
+    WHILE               [reduce using rule 46 (Statement)]
+    SYSTEM_OUT_PRINTLN  [reduce using rule 46 (Statement)]
+    $default            reduce using rule 46 (Statement)
+
+    Statement   go to state 223
+    SysOut      go to state 98
+    If          go to state 99
+    While       go to state 100
+    Identifier  go to state 101
+    LCbracket   go to state 102
+
+
+State 207
+
+   72 NonZeroExpression: Expression PositiveExpression .
+
+    $default  reduce using rule 72 (NonZeroExpression)
+
+
+State 208
+
+   74 PositiveExpression: Comma . Expression PositiveExpression
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    Expression         go to state 224
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 209
+
+   49 IdentifierStatement: LRbracket NonZeroExpression RRbracket . Semicolon
+
+    SEMI_COLON  shift, and go to state 168
+
+    Semicolon  go to state 225
+
+
+State 210
+
+   48 IdentifierStatement: LSbracket Expression RSbracket . Assign Expression Semicolon Statement
+
+    ASSIGN  shift, and go to state 140
+
+    Assign  go to state 226
+
+
+State 211
+
+   70 SubExpression: Dot Identifier LRbracket . NonZeroExpression RRbracket
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    $default  reduce using rule 73 (NonZeroExpression)
+
+    Expression         go to state 179
+    NonZeroExpression  go to state 227
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 212
+
+   68 SubExpression: LSbracket PrimaryExpression RSbracket .
+
+    $default  reduce using rule 68 (SubExpression)
+
+
+State 213
+
+   81 PrimaryExpression: New Int LSbracket Expression . RSbracket
+
+    RIGHT_SQR_BRACKET  shift, and go to state 170
+
+    RSbracket  go to state 228
+
+
+State 214
+
+   82 PrimaryExpression: New Identifier LRbracket RRbracket .
+
+    $default  reduce using rule 82 (PrimaryExpression)
+
+
+State 215
+
+   66 Expression: Identifier LRbracket NonZeroExpression RRbracket .
+
+    $default  reduce using rule 66 (Expression)
+
+
+State 216
+
+   10 WithExtends: Extends Identifier LCbracket MultipleType MultipleMethod RCbracket . MultipleTypeDeclaration
+
+    CLASS  shift, and go to state 22
+
+    $default  reduce using rule 9 (MultipleTypeDeclaration)
+
+    Class                    go to state 36
+    MultipleTypeDeclaration  go to state 229
+
+
+State 217
+
+   15 MultipleMethod: Public Type Identifier LRbracket . MultipleTypeArgs RRbracket LCbracket MultipleTypeArgsStatement Return Expression Semicolon RCbracket MultipleMethod
+
+    IDENTIFIER  shift, and go to state 26
+    INT         shift, and go to state 82
+    BOOLEAN     shift, and go to state 83
+
+    $default  reduce using rule 21 (MultipleTypeArgs)
+
+    MultipleTypeArgs  go to state 230
+    Type              go to state 231
+    Int               go to state 86
+    Boolean           go to state 87
+    Identifier        go to state 88
+
+
+State 218
+
+    4 MainFuntion: PublicMain LRbracket String LSbracket RSbracket Identifier . RRbracket LCbracket MainFunctionStatement RCbracket
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 232
+
+
+State 219
+
+   95 MoreArgs: Comma Identifier . MoreArgs
+
+    COMMA  shift, and go to state 71
+
+    $default  reduce using rule 96 (MoreArgs)
+
+    MoreArgs  go to state 233
+    Comma     go to state 202
+
+
+State 220
+
+   42 Statement: SysOut LRbracket Expression RRbracket Semicolon . Statement
+
+    LEFT_CURL_BRACKET   shift, and go to state 49
+    IDENTIFIER          shift, and go to state 26
+    IF                  shift, and go to state 94
+    WHILE               shift, and go to state 95
+    SYSTEM_OUT_PRINTLN  shift, and go to state 96
+
+    LEFT_CURL_BRACKET   [reduce using rule 46 (Statement)]
+    IDENTIFIER          [reduce using rule 46 (Statement)]
+    IF                  [reduce using rule 46 (Statement)]
+    WHILE               [reduce using rule 46 (Statement)]
+    SYSTEM_OUT_PRINTLN  [reduce using rule 46 (Statement)]
+    $default            reduce using rule 46 (Statement)
+
+    Statement   go to state 234
+    SysOut      go to state 98
+    If          go to state 99
+    While       go to state 100
+    Identifier  go to state 101
+    LCbracket   go to state 102
+
+
+State 221
+
+   43 Statement: If LRbracket Expression RRbracket Statement . ElsePart
+
+    ELSE  shift, and go to state 235
+
+    ElsePart  go to state 236
+    Else      go to state 237
+
+
+State 222
+
+   45 Statement: While LRbracket Expression RRbracket Statement . Statement
+
+    LEFT_CURL_BRACKET   shift, and go to state 49
+    IDENTIFIER          shift, and go to state 26
+    IF                  shift, and go to state 94
+    WHILE               shift, and go to state 95
+    SYSTEM_OUT_PRINTLN  shift, and go to state 96
+
+    LEFT_CURL_BRACKET   [reduce using rule 46 (Statement)]
+    IDENTIFIER          [reduce using rule 46 (Statement)]
+    IF                  [reduce using rule 46 (Statement)]
+    WHILE               [reduce using rule 46 (Statement)]
+    SYSTEM_OUT_PRINTLN  [reduce using rule 46 (Statement)]
+    $default            reduce using rule 46 (Statement)
+
+    Statement   go to state 238
+    SysOut      go to state 98
+    If          go to state 99
+    While       go to state 100
+    Identifier  go to state 101
+    LCbracket   go to state 102
+
+
+State 223
+
+   47 IdentifierStatement: Assign Expression Semicolon Statement .
+
+    $default  reduce using rule 47 (IdentifierStatement)
+
+
+State 224
+
+   74 PositiveExpression: Comma Expression . PositiveExpression
+
+    COMMA  shift, and go to state 71
+
+    $default  reduce using rule 75 (PositiveExpression)
+
+    PositiveExpression  go to state 239
+    Comma               go to state 208
+
+
+State 225
+
+   49 IdentifierStatement: LRbracket NonZeroExpression RRbracket Semicolon .
+
+    $default  reduce using rule 49 (IdentifierStatement)
+
+
+State 226
+
+   48 IdentifierStatement: LSbracket Expression RSbracket Assign . Expression Semicolon Statement
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    Expression         go to state 240
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 227
+
+   70 SubExpression: Dot Identifier LRbracket NonZeroExpression . RRbracket
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 241
+
+
+State 228
+
+   81 PrimaryExpression: New Int LSbracket Expression RSbracket .
+
+    $default  reduce using rule 81 (PrimaryExpression)
+
+
+State 229
+
+   10 WithExtends: Extends Identifier LCbracket MultipleType MultipleMethod RCbracket MultipleTypeDeclaration .
+
+    $default  reduce using rule 10 (WithExtends)
+
+
+State 230
+
+   15 MultipleMethod: Public Type Identifier LRbracket MultipleTypeArgs . RRbracket LCbracket MultipleTypeArgsStatement Return Expression Semicolon RCbracket MultipleMethod
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 242
+
+
+State 231
+
+   20 MultipleTypeArgs: Type . Identifier MoreTypeArgs
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 243
+
+
+State 232
+
+    4 MainFuntion: PublicMain LRbracket String LSbracket RSbracket Identifier RRbracket . LCbracket MainFunctionStatement RCbracket
+
+    LEFT_CURL_BRACKET  shift, and go to state 49
+
+    LCbracket  go to state 244
+
+
+State 233
+
+   95 MoreArgs: Comma Identifier MoreArgs .
+
+    $default  reduce using rule 95 (MoreArgs)
+
+
+State 234
+
+   42 Statement: SysOut LRbracket Expression RRbracket Semicolon Statement .
+
+    $default  reduce using rule 42 (Statement)
+
+
+State 235
+
+   55 Else: ELSE .
+
+    $default  reduce using rule 55 (Else)
+
+
+State 236
+
+   43 Statement: If LRbracket Expression RRbracket Statement ElsePart .
+
+    $default  reduce using rule 43 (Statement)
+
+
+State 237
+
+   50 ElsePart: Else . Statement Statement
+
+    LEFT_CURL_BRACKET   shift, and go to state 49
+    IDENTIFIER          shift, and go to state 26
+    IF                  shift, and go to state 94
+    WHILE               shift, and go to state 95
+    SYSTEM_OUT_PRINTLN  shift, and go to state 96
+
+    LEFT_CURL_BRACKET   [reduce using rule 46 (Statement)]
+    IDENTIFIER          [reduce using rule 46 (Statement)]
+    IF                  [reduce using rule 46 (Statement)]
+    WHILE               [reduce using rule 46 (Statement)]
+    SYSTEM_OUT_PRINTLN  [reduce using rule 46 (Statement)]
+    $default            reduce using rule 46 (Statement)
+
+    Statement   go to state 245
+    SysOut      go to state 98
+    If          go to state 99
+    While       go to state 100
+    Identifier  go to state 101
+    LCbracket   go to state 102
+
+
+State 238
+
+   45 Statement: While LRbracket Expression RRbracket Statement Statement .
+
+    $default  reduce using rule 45 (Statement)
+
+
+State 239
+
+   74 PositiveExpression: Comma Expression PositiveExpression .
+
+    $default  reduce using rule 74 (PositiveExpression)
+
+
+State 240
+
+   48 IdentifierStatement: LSbracket Expression RSbracket Assign Expression . Semicolon Statement
+
+    SEMI_COLON  shift, and go to state 168
+
+    Semicolon  go to state 246
+
+
+State 241
+
+   70 SubExpression: Dot Identifier LRbracket NonZeroExpression RRbracket .
+
+    $default  reduce using rule 70 (SubExpression)
+
+
+State 242
+
+   15 MultipleMethod: Public Type Identifier LRbracket MultipleTypeArgs RRbracket . LCbracket MultipleTypeArgsStatement Return Expression Semicolon RCbracket MultipleMethod
+
+    LEFT_CURL_BRACKET  shift, and go to state 49
+
+    LCbracket  go to state 247
+
+
+State 243
+
+   20 MultipleTypeArgs: Type Identifier . MoreTypeArgs
+
+    COMMA  shift, and go to state 71
+
+    $default  reduce using rule 23 (MoreTypeArgs)
+
+    MoreTypeArgs  go to state 248
+    Comma         go to state 249
+
+
+State 244
+
+    4 MainFuntion: PublicMain LRbracket String LSbracket RSbracket Identifier RRbracket LCbracket . MainFunctionStatement RCbracket
+
+    SYSTEM_OUT_PRINTLN  shift, and go to state 96
+
+    MainFunctionStatement  go to state 250
+    SysOut                 go to state 251
+
+
+State 245
+
+   50 ElsePart: Else Statement . Statement
+
+    LEFT_CURL_BRACKET   shift, and go to state 49
+    IDENTIFIER          shift, and go to state 26
+    IF                  shift, and go to state 94
+    WHILE               shift, and go to state 95
+    SYSTEM_OUT_PRINTLN  shift, and go to state 96
+
+    LEFT_CURL_BRACKET   [reduce using rule 46 (Statement)]
+    IDENTIFIER          [reduce using rule 46 (Statement)]
+    IF                  [reduce using rule 46 (Statement)]
+    WHILE               [reduce using rule 46 (Statement)]
+    SYSTEM_OUT_PRINTLN  [reduce using rule 46 (Statement)]
+    $default            reduce using rule 46 (Statement)
+
+    Statement   go to state 252
+    SysOut      go to state 98
+    If          go to state 99
+    While       go to state 100
+    Identifier  go to state 101
+    LCbracket   go to state 102
+
+
+State 246
+
+   48 IdentifierStatement: LSbracket Expression RSbracket Assign Expression Semicolon . Statement
+
+    LEFT_CURL_BRACKET   shift, and go to state 49
+    IDENTIFIER          shift, and go to state 26
+    IF                  shift, and go to state 94
+    WHILE               shift, and go to state 95
+    SYSTEM_OUT_PRINTLN  shift, and go to state 96
+
+    LEFT_CURL_BRACKET   [reduce using rule 46 (Statement)]
+    IDENTIFIER          [reduce using rule 46 (Statement)]
+    IF                  [reduce using rule 46 (Statement)]
+    WHILE               [reduce using rule 46 (Statement)]
+    SYSTEM_OUT_PRINTLN  [reduce using rule 46 (Statement)]
+    $default            reduce using rule 46 (Statement)
+
+    Statement   go to state 253
+    SysOut      go to state 98
+    If          go to state 99
+    While       go to state 100
+    Identifier  go to state 101
+    LCbracket   go to state 102
+
+
+State 247
+
+   15 MultipleMethod: Public Type Identifier LRbracket MultipleTypeArgs RRbracket LCbracket . MultipleTypeArgsStatement Return Expression Semicolon RCbracket MultipleMethod
+
+    LEFT_CURL_BRACKET   shift, and go to state 49
+    IDENTIFIER          shift, and go to state 26
+    INT                 shift, and go to state 82
+    BOOLEAN             shift, and go to state 83
+    IF                  shift, and go to state 94
+    WHILE               shift, and go to state 95
+    SYSTEM_OUT_PRINTLN  shift, and go to state 96
+
+    $default  reduce using rule 46 (Statement)
+
+    MultipleTypeArgsStatement  go to state 254
+    Type                       go to state 255
+    Statement                  go to state 256
+    SysOut                     go to state 98
+    If                         go to state 99
+    While                      go to state 100
+    Int                        go to state 86
+    Boolean                    go to state 87
+    Identifier                 go to state 257
+    LCbracket                  go to state 102
+
+
+State 248
+
+   20 MultipleTypeArgs: Type Identifier MoreTypeArgs .
+
+    $default  reduce using rule 20 (MultipleTypeArgs)
+
+
+State 249
+
+   22 MoreTypeArgs: Comma . Type Identifier MoreTypeArgs
+
+    IDENTIFIER  shift, and go to state 26
+    INT         shift, and go to state 82
+    BOOLEAN     shift, and go to state 83
+
+    Type        go to state 258
+    Int         go to state 86
+    Boolean     go to state 87
+    Identifier  go to state 88
+
+
+State 250
+
+    4 MainFuntion: PublicMain LRbracket String LSbracket RSbracket Identifier RRbracket LCbracket MainFunctionStatement . RCbracket
+
+    RIGHT_CURL_BRACKET  shift, and go to state 89
+
+    RCbracket  go to state 259
+
+
+State 251
+
+    7 MainFunctionStatement: SysOut . LRbracket Expression RRbracket Semicolon
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+
+    LRbracket  go to state 260
+
+
+State 252
+
+   50 ElsePart: Else Statement Statement .
+
+    $default  reduce using rule 50 (ElsePart)
+
+
+State 253
+
+   48 IdentifierStatement: LSbracket Expression RSbracket Assign Expression Semicolon Statement .
+
+    $default  reduce using rule 48 (IdentifierStatement)
+
+
+State 254
+
+   15 MultipleMethod: Public Type Identifier LRbracket MultipleTypeArgs RRbracket LCbracket MultipleTypeArgsStatement . Return Expression Semicolon RCbracket MultipleMethod
+
+    RETURN  shift, and go to state 261
+
+    Return  go to state 262
+
+
+State 255
+
+   17 MultipleTypeArgsStatement: Type . Identifier Semicolon MultipleTypeArgsStatement
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 263
+
+
+State 256
+
+   18 MultipleTypeArgsStatement: Statement .
+
+    $default  reduce using rule 18 (MultipleTypeArgsStatement)
+
+
+State 257
+
+   27 Type: Identifier .
+   44 Statement: Identifier . IdentifierStatement
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    LEFT_SQR_BRACKET    shift, and go to state 129
+    ASSIGN              shift, and go to state 140
+
+    $default  reduce using rule 27 (Type)
+
+    IdentifierStatement  go to state 141
+    Assign               go to state 142
+    LRbracket            go to state 143
+    LSbracket            go to state 144
+
+
+State 258
+
+   22 MoreTypeArgs: Comma Type . Identifier MoreTypeArgs
+
+    IDENTIFIER  shift, and go to state 26
+
+    Identifier  go to state 264
+
+
+State 259
+
+    4 MainFuntion: PublicMain LRbracket String LSbracket RSbracket Identifier RRbracket LCbracket MainFunctionStatement RCbracket .
+
+    $default  reduce using rule 4 (MainFuntion)
+
+
+State 260
+
+    7 MainFunctionStatement: SysOut LRbracket . Expression RRbracket Semicolon
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    Expression         go to state 265
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 261
+
+   24 Return: RETURN .
+
+    $default  reduce using rule 24 (Return)
+
+
+State 262
+
+   15 MultipleMethod: Public Type Identifier LRbracket MultipleTypeArgs RRbracket LCbracket MultipleTypeArgsStatement Return . Expression Semicolon RCbracket MultipleMethod
+
+    LEFT_ROUND_BRACKET  shift, and go to state 39
+    IDENTIFIER          shift, and go to state 26
+    INTEGER_LITERAL     shift, and go to state 107
+    TRUE                shift, and go to state 108
+    FALSE               shift, and go to state 109
+    THIS                shift, and go to state 110
+    NEW                 shift, and go to state 111
+    NOT                 shift, and go to state 112
+
+    Expression         go to state 266
+    PrimaryExpression  go to state 114
+    BoolVal            go to state 115
+    This               go to state 116
+    New                go to state 117
+    Not                go to state 118
+    Integer            go to state 119
+    Identifier         go to state 120
+    LRbracket          go to state 121
+
+
+State 263
+
+   17 MultipleTypeArgsStatement: Type Identifier . Semicolon MultipleTypeArgsStatement
+
+    SEMI_COLON  shift, and go to state 168
+
+    Semicolon  go to state 267
+
+
+State 264
+
+   22 MoreTypeArgs: Comma Type Identifier . MoreTypeArgs
+
+    COMMA  shift, and go to state 71
+
+    $default  reduce using rule 23 (MoreTypeArgs)
+
+    MoreTypeArgs  go to state 268
+    Comma         go to state 249
+
+
+State 265
+
+    7 MainFunctionStatement: SysOut LRbracket Expression . RRbracket Semicolon
+
+    RIGHT_ROUND_BRACKET  shift, and go to state 53
+
+    RRbracket  go to state 269
+
+
+State 266
+
+   15 MultipleMethod: Public Type Identifier LRbracket MultipleTypeArgs RRbracket LCbracket MultipleTypeArgsStatement Return Expression . Semicolon RCbracket MultipleMethod
+
+    SEMI_COLON  shift, and go to state 168
+
+    Semicolon  go to state 270
+
+
+State 267
+
+   17 MultipleTypeArgsStatement: Type Identifier Semicolon . MultipleTypeArgsStatement
+
+    LEFT_CURL_BRACKET   shift, and go to state 49
+    IDENTIFIER          shift, and go to state 26
+    INT                 shift, and go to state 82
+    BOOLEAN             shift, and go to state 83
+    IF                  shift, and go to state 94
+    WHILE               shift, and go to state 95
+    SYSTEM_OUT_PRINTLN  shift, and go to state 96
+
+    $default  reduce using rule 46 (Statement)
+
+    MultipleTypeArgsStatement  go to state 271
+    Type                       go to state 255
+    Statement                  go to state 256
+    SysOut                     go to state 98
+    If                         go to state 99
+    While                      go to state 100
+    Int                        go to state 86
+    Boolean                    go to state 87
+    Identifier                 go to state 257
+    LCbracket                  go to state 102
+
+
+State 268
+
+   22 MoreTypeArgs: Comma Type Identifier MoreTypeArgs .
+
+    $default  reduce using rule 22 (MoreTypeArgs)
+
+
+State 269
+
+    7 MainFunctionStatement: SysOut LRbracket Expression RRbracket . Semicolon
+
+    SEMI_COLON  shift, and go to state 168
+
+    Semicolon  go to state 272
+
+
+State 270
+
+   15 MultipleMethod: Public Type Identifier LRbracket MultipleTypeArgs RRbracket LCbracket MultipleTypeArgsStatement Return Expression Semicolon . RCbracket MultipleMethod
+
+    RIGHT_CURL_BRACKET  shift, and go to state 89
+
+    RCbracket  go to state 273
+
+
+State 271
+
+   17 MultipleTypeArgsStatement: Type Identifier Semicolon MultipleTypeArgsStatement .
+
+    $default  reduce using rule 17 (MultipleTypeArgsStatement)
+
+
+State 272
+
+    7 MainFunctionStatement: SysOut LRbracket Expression RRbracket Semicolon .
+
+    $default  reduce using rule 7 (MainFunctionStatement)
+
+
+State 273
+
+   15 MultipleMethod: Public Type Identifier LRbracket MultipleTypeArgs RRbracket LCbracket MultipleTypeArgsStatement Return Expression Semicolon RCbracket . MultipleMethod
+
+    PUBLIC  shift, and go to state 125
+
+    $default  reduce using rule 16 (MultipleMethod)
+
+    MultipleMethod  go to state 274
+    Public          go to state 127
+
+
+State 274
+
+   15 MultipleMethod: Public Type Identifier LRbracket MultipleTypeArgs RRbracket LCbracket MultipleTypeArgsStatement Return Expression Semicolon RCbracket MultipleMethod .
+
+    $default  reduce using rule 15 (MultipleMethod)

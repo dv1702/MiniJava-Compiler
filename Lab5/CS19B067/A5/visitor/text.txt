@@ -1,0 +1,9 @@
+
+->fp
+ra
+fp 
+arguments 
+saved register
+-> sp-caller
+fp calle
+ra calle
